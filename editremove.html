@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+
+<input type="text" id="girdi" placeholder="metin giriniz ">
+
+<ul id="liste"></ul>
+
+<button onclick="tikla()">Tikla</button>
+
+
+    <script>
+        var text = document.getElementById("girdi");
+        var listeid = document.getElementById("liste");
+        
+        function tikla() {
+          var li = document.createElement("li");
+          li.textContent = text.value;
+          
+          var sil = document.createElement("span");
+          sil.textContent = " x";
+          sil.style.color = "red";
+          sil.style.cursor = "pointer";
+          sil.onclick = function() {
+            li.remove();
+          };
+          
+          var edit = document.createElement("span");
+          edit.textContent = " edit";
+          edit.style.color = "blue";
+          edit.style.cursor = "pointer";
+          edit.onclick = function() {
+            var input = document.createElement("input");
+            input.type = "text";
+            input.value = li.textContent;
+            li.textContent = "";
+            li.appendChild(input);
+            input.focus();
+        
+            // input kaybı durumunda metin güncellenir, edit düğmesi kalmaya devam eder
+            input.onblur = function() {
+              li.textContent = input.value;
+              li.appendChild(edit);
+              li.appendChild(sil);
+            };
+          };
+          
+          li.appendChild(edit);
+          li.appendChild(sil);
+          listeid.appendChild(li);
+          text.value = "";
+        }
+
+        </script>
+    
+</body>
+</html>
